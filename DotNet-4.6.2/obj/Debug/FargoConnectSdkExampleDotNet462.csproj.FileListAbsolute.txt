@@ -1,0 +1,2 @@
+C:\Users\subheg\Documents\subramanya\Fargo\Morris\SDK\DotNet\HID-FARGO-Connect-ClientSDK-for-DotNet\examples\DotNet-4.6.2\obj\Debug\FargoConnectSdkExampleDotNet462.csprojAssemblyReference.cache
+C:\Users\subheg\Documents\subramanya\Fargo\Morris\SDK\DotNet\HID-FARGO-Connect-ClientSDK-for-DotNet\examples\DotNet-4.6.2\obj\Debug\FargoConnectSdkExampleDotNet462.csproj.CoreCompileInputs.cache

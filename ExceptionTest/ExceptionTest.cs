@@ -10,139 +10,176 @@ namespace ExceptionTest
     [TestClass]
     public class ExceptionTestCases
     {
-        Program myclass = new Program();
+        private const string TestServerApiKey = "6A2202CD3D5DE6919FAFBEEB6749A62116B64066BCBE335B42DE310CCFA8D36A";
+        private const string TestServerUrl = "https://test.api.hfc.hidglobal.com:18443";
+        private const string SSL_Cert_Path = @"C:\OneDrive\OneDrive-AssaAbloyInc\HFC Internal Share\Certificates\archive\Schlumberger-Development-Certs\C#\Schlumberger_Card_Services_Client_API_Auth_Cert.p12";
+        private const string SSL_Cert_Pwd = "xgWkY3uwSDX2JX1qyvi7";
 
-        [TestMethod]      
-        public void APIkeyException()
-        {
-          string apiexception=  myclass.Apikey_Exception();
-            Console.WriteLine("apiexception:" + apiexception);
-            StringAssert.Contains(apiexception, "Test server API key and URL have not been configured");
-        }
+        //load the program and set the constants
+        Program myclass = new(TestServerApiKey, TestServerUrl, SSL_Cert_Path, SSL_Cert_Pwd);
+
+
+        //strings to verify against       
+        private const string OrgNameToVerify = "junittesting_failures";
+        private const string OrgIdToVerify = "ORG66EEA7F7C73141849E4D0CB4B733A0CD";
+        private const string LocationNameToVerify = "subramanya H P";
+        private const string LocationIdToVerify = "LOC7B00503775AF437FB2AAB161A70D2627";
+        private const string ProductionProfileNameToVerify = "testing";
+        private const string ProductionProfileIdToVerify = "PRAED88ED3EEA94F94B012211145E44742";
+        private const string PrinterNameToVerify = "Printer1";
+        private const string CardTypeToVerify = "blankcard";
+        private const string FailedJobId = "JOBC9914E45D536449BB5A5A8317A344A07";
+        private const string SubmittedJobId = "JOB5A65D30732CE47EE99093B43A3216E7F";
+        private const string PrintedJobId = "JOB055FB17381DF4788891DD1277399F9F5";
+        private const string DeletedJobId = "JOBC9914E45D536449BB5A5A8317A344A07";
+        //private const string WrongJobId = "JOBC9914E45D536449BB5A5A8317A344A0B";
+
 
         [TestMethod]
-        public void ServerUriException()
-        {
-            string serverURiexception = myclass.Apikey_Exception();
-            Console.WriteLine("serverURiexception:" + serverURiexception);
-            StringAssert.Contains(serverURiexception, "Test server API key and URL have not been configured");
-        }
-
-        [TestMethod]
-        [ExpectedException(typeof(DirectoryNotFoundException))]
-        public void DirectoryException()
-        {
-            myclass.DirectoryException();
-        }
-
-        [TestMethod]
-        [ExpectedException(typeof(TypeLoadException))]
-        public void LoadException()
-        {
-            myclass.LoadException();
-        }
-        
-
-         [TestMethod]
         [ExpectedException(typeof(UriFormatException))]
         public void ServerUriPortException()
         {
-            var clientCertificate = new X509Certificate2(File.ReadAllBytes(@"C:\HFCCertification\Schlumberger-Development-Certs\Java\Schlumberger_Card_Services_Client_API_Auth_Cert.p12"), "xgWkY3uwSDX2JX1qyvi7");
-            var cardServicesClient = myclass.ConfigureClientexp("https://test.api.hfc.hidglobal.com:123456", "528DFB0B54B2438A5F631E94754BA4DA088E0EA1CF9700EF4ACE0B4C6D49F957", clientCertificate);
-            string serverURiexception = cardServicesClient.ToString();
-            Console.WriteLine("serverURiPortexception:" + serverURiexception);
-            StringAssert.Contains(serverURiexception, "Invalid URI: Invalid port specified.");
+            var clientCertificate = new X509Certificate2(File.ReadAllBytes(myclass.SSL_Cert_Path), myclass.SSL_Cert_Pwd);
+            //will throw exception
+            var cardServicesClient = myclass.ConfigureClientexp(myclass.TestServerUrl + "2", myclass.TestServerApiKey, clientCertificate);
+           // string serverURiexception = cardServicesClient.ToString();
+          //  Console.WriteLine("serverURiPortexception:" + serverURiexception);
+          //  StringAssert.Contains(serverURiexception, "Invalid URI: Invalid port specified.");
         }
-
+      
         [TestMethod]
-        [ExpectedException(typeof(UriFormatException))]
+        [ExpectedException(typeof(FargoConnect.CardServices.RestApi.Client.CardServicesApiException))]
         public void ServerUriPrefixException()
         {
-            var clientCertificate = new X509Certificate2(File.ReadAllBytes(@"C:\HFCCertification\Schlumberger-Development-Certs\Java\Schlumberger_Card_Services_Client_API_Auth_Cert.p12"), "xgWkY3uwSDX2JX1qyvi7");
-            var cardServicesClient = myclass.ConfigureClientexp("ht://test.api.hfc.hidglobal.com:123456", "528DFB0B54B2438A5F631E94754BA4DA088E0EA1CF9700EF4ACE0B4C6D49F957", clientCertificate);
-            string serverURiexception = cardServicesClient.ToString();
-            Console.WriteLine("ServerUriPrefixException:" + serverURiexception);
-            StringAssert.Contains(serverURiexception, "Error getting organizations - The URI prefix is not recognized.");
+            var clientCertificate = new X509Certificate2(File.ReadAllBytes(myclass.SSL_Cert_Path), myclass.SSL_Cert_Pwd);
+            var cardServicesClient = myclass.ConfigureClientexp(myclass.TestServerUrl.Replace("http", "htp"), myclass.TestServerApiKey, clientCertificate);
+
+            //will throw exception
+            int deviceCount= cardServicesClient.DeviceApi.GetDevices().Count;
+
+         //   Console.WriteLine("ServerUriPrefixException:" + serverURiexception);
+          //  StringAssert.Contains(serverURiexception, "Error getting organizations - The URI prefix is not recognized.");
+        }
+      
+              [TestMethod]
+              [ExpectedException(typeof(FargoConnect.CardServices.RestApi.Client.CardServicesApiException))]
+              public void ServerUriHostException()
+              {
+                  var clientCertificate = new X509Certificate2(File.ReadAllBytes(myclass.SSL_Cert_Path), myclass.SSL_Cert_Pwd);
+                  var cardServicesClient = myclass.ConfigureClientexp("https://somebadurljuju.hidglobal.com:1456", myclass.TestServerApiKey, clientCertificate);
+
+            //will throw exception
+            int deviceCount = cardServicesClient.DeviceApi.GetDevices().Count;
+
+            //  string serverURiexception = cardServicesClient.ToString();
+            //  Console.WriteLine("ServerUriHostException:" + serverURiexception); 
+            //  StringAssert.Contains(serverURiexception, "Error getting organizations - No such host is known. (somebadurljuju.hidglobal.com:18443)");
+        }
+        [TestMethod]
+        [ExpectedException(typeof(FargoConnect.CardServices.RestApi.Client.CardServicesApiException))]
+        public void ApiException()
+        {
+            var clientCertificate = new X509Certificate2(File.ReadAllBytes(myclass.SSL_Cert_Path), myclass.SSL_Cert_Pwd);
+            var cardServicesClient = myclass.ConfigureClientexp(myclass.TestServerUrl, myclass.TestServerApiKey + "2", clientCertificate);
+
+            //will throw exception
+            int deviceCount = cardServicesClient.DeviceApi.GetDevices().Count;
+
+            //  string serverURiexception = cardServicesClient.ToString();
+            //  Console.WriteLine("ServerUriHostException:" + serverURiexception); 
+            //  StringAssert.Contains(serverURiexception, "Error getting organizations - No such host is known. (somebadurljuju.hidglobal.com:18443)");
+        }
+
+          
+        [TestMethod]
+        public void BadOrgId()
+        {
+            String badOrgId = "ORG66EEA7F7C";
+            try
+            {
+                string OrgID = myclass.orgID(badOrgId);
+            }
+            catch (CardServicesApiException e)
+            {
+                StringAssert.Contains(e.Message, "Organization not found: '" + badOrgId);
+            }
+            
+            
         }
 
         [TestMethod]
-        [ExpectedException(typeof(UriFormatException))]
-        public void ServerUriHostException()
+        public void BadOrgUnitId()
         {
-            var clientCertificate = new X509Certificate2(File.ReadAllBytes(@"C:\HFCCertification\Schlumberger-Development-Certs\Java\Schlumberger_Card_Services_Client_API_Auth_Cert.p12"), "xgWkY3uwSDX2JX1qyvi7");
-            var cardServicesClient = myclass.ConfigureClientexp("ht://somebadurljuju.hidglobal.com:123456", "528DFB0B54B2438A5F631E94754BA4DA088E0EA1CF9700EF4ACE0B4C6D49F957", clientCertificate);
-            string serverURiexception = cardServicesClient.ToString();
-            Console.WriteLine("ServerUriHostException:" + serverURiexception); 
-            StringAssert.Contains(serverURiexception, "Error getting organizations - No such host is known. (somebadurljuju.hidglobal.com:18443)");
+            String badOrgUnitId = "OU66EEA7F7C";
+            try
+            {
+                string OrgUnitID = myclass.orgUnitID(badOrgUnitId);
+            }
+            catch (CardServicesApiException e)
+            {
+                StringAssert.Contains(e.Message, "Organizational unit not found: '" + badOrgUnitId);
+            }
+
+
         }
 
         [TestMethod]
-        [ExpectedException(typeof(DirectoryNotFoundException))]
-        public void certpathException()
+        public void BadLocationId()
         {
-            var clientCertificate = new X509Certificate2(File.ReadAllBytes(@"C:\HFCCertificatio\Schlumberger-Development-Certs\Java\Schlumberger_Card_Services_Client_API_Auth_Cert.p12"), "xgWkY3uwSDX2JX1qyvi7");
-            var cardServicesClient = myclass.ConfigureClientexp("https://test.api.hfc.hidglobal.com:18443", "528DFB0B54B2438A5F631E94754BA4DA088E0EA1CF9700EF4ACE0B4C6D49F957", clientCertificate);
-            string certpathexception = cardServicesClient.ToString();
-            Console.WriteLine("certpathException:" + certpathexception);
-            StringAssert.Contains(certpathexception, "Exception for Client CA certificate file not found:");
+            String badLocId = "LOC66EEA7F7C";
+            try
+            {
+                string LocID = myclass.locationID(badLocId);
+            }
+            catch (CardServicesApiException e)
+            {
+                StringAssert.Contains(e.Message, "Location not found: '" + badLocId);
+            }
+        }
+
+      
+          [TestMethod]
+          public void BadProductionProfileId()
+          {
+            String badProfId = "PRAED88ED";
+            try
+            {
+                string LocID = myclass.productionProfileID(badProfId);
+            }
+            catch (CardServicesApiException e)
+            {
+                StringAssert.Contains(e.Message, "profile not found: '" + badProfId);
+            }
         }
 
         [TestMethod]
-        [ExpectedException(typeof(FileNotFoundException))]
-        public void certPWDException()
+        public void BadDeviceId()
         {
-            var clientCertificate = new X509Certificate2(File.ReadAllBytes(@"C:\HFCCertification\Schlumberger-Development-Certs\Java\Schlumberger_Card_Services_Clien_API_Auth_Cert.p12"), "xgWkY3uwSDX2JX1qyvi7gfsagf");
-            var cardServicesClient = myclass.ConfigureClientexp("https://test.api.hfc.hidglobal.com:18443", "528DFB0B54B2438A5F631E94754BA4DA088E0EA1CF9700EF4ACE0B4C6D49F957", clientCertificate);
-            string certPWDException = cardServicesClient.ToString();
-            Console.WriteLine("certPWDException:" + certPWDException);
-            StringAssert.Contains(certPWDException, "Exception for Client Incorrect Paswword:'xgWkY3uwSDX2JX1qyvi7gfsagf'");
+            String badDeviceId = "MFA12345";
+            try
+            {
+                string DeviceID = myclass.deviceID(badDeviceId);
+            }
+            catch (CardServicesApiException e)
+            {
+                StringAssert.Contains(e.Message, "Device not found: '" + badDeviceId);
+            }
         }
 
-
-        [TestMethod]
-        [ExpectedException(typeof(FileNotFoundException))]
-        public void Orgnameexp()
-        {
-            string Orgname = myclass.orgnameexp();
-            Console.WriteLine("orgname:" + Orgname);
-            StringAssert.Contains(Orgname, "No organizations found");
-        }
-
-        [TestMethod]
-        [ExpectedException(typeof(FileNotFoundException))]
-        public void LocationName()
-        {
-            string LocationName = myclass.location();
-            Console.WriteLine("LocationName:" + LocationName);
-            StringAssert.Contains(LocationName, "absdcdn");
-        }
-
-        [TestMethod]
-        [ExpectedException(typeof(FileNotFoundException))]
-        public void ProductionProfileName()
-        {
-            string ProductionProfileName = myclass.productionProfileName();
-            Console.WriteLine("ProductionProfileName:" + ProductionProfileName);
-            StringAssert.Contains(ProductionProfileName, "absdcdn");
-        }
-
-        [TestMethod]
-        [ExpectedException(typeof(FileNotFoundException))]
-        public void PrinterName()
-        {
-            string PrinterName = myclass.PrintDest();
-            Console.WriteLine("PrinterName:" + PrinterName);
-            StringAssert.Contains(PrinterName, "dgfgs");
-        }
-
-        [TestMethod]
-        [ExpectedException(typeof(FileNotFoundException))]
-        public void cardtype()
-        {
-            string Blankcard = myclass.Prod();
-            Console.WriteLine("Blankcard:" + Blankcard);
-            StringAssert.Contains(Blankcard, "blankcard");
-        }
-
+       
+          [TestMethod]
+          public void JobNotFound()
+          {
+            String badJobId = "JOB12345";
+            try
+            {
+                string JobStatus = myclass.JobStatus(badJobId);
+            }
+            catch (CardServicesApiException e)
+            {
+                StringAssert.Contains(e.Message, "Job not found: '" + badJobId);
+            }
+            
+          }
     }
 }

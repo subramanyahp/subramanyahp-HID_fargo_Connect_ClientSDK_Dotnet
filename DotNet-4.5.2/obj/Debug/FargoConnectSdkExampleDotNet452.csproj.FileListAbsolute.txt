@@ -52,3 +52,20 @@ C:\HID-FARGO-Connect-ClientSDK-for-DotNet\examples\DotNet-4.5.2\obj\Debug\FargoC
 C:\HID-FARGO-Connect-ClientSDK-for-DotNet\examples\DotNet-4.5.2\obj\Debug\FargoConnect.CardServices.ClientSdk.Examples.exe
 C:\HID-FARGO-Connect-ClientSDK-for-DotNet\examples\DotNet-4.5.2\obj\Debug\FargoConnect.CardServices.ClientSdk.Examples.pdb
 C:\HID-FARGO-Connect-ClientSDK-for-DotNet\examples\DotNet-4.5.2\obj\Debug\FargoConnectSdkExampleDotNet452.csprojAssemblyReference.cache
+C:\OneDrive\OneDrive-AssaAbloyInc\HFC Internal Share\Technical\Code\unit tests\.net\DotNet-4.5.2\bin\Debug\photos\testimage.png
+C:\OneDrive\OneDrive-AssaAbloyInc\HFC Internal Share\Technical\Code\unit tests\.net\DotNet-4.5.2\bin\Debug\FargoConnect.CardServices.ClientSdk.Examples.pdb
+C:\OneDrive\OneDrive-AssaAbloyInc\HFC Internal Share\Technical\Code\unit tests\.net\DotNet-4.5.2\bin\Debug\BouncyCastle.Crypto.dll
+C:\OneDrive\OneDrive-AssaAbloyInc\HFC Internal Share\Technical\Code\unit tests\.net\DotNet-4.5.2\bin\Debug\Newtonsoft.Json.dll
+C:\OneDrive\OneDrive-AssaAbloyInc\HFC Internal Share\Technical\Code\unit tests\.net\DotNet-4.5.2\bin\Debug\RestSharp.dll
+C:\OneDrive\OneDrive-AssaAbloyInc\HFC Internal Share\Technical\Code\unit tests\.net\DotNet-4.5.2\bin\Debug\System.ValueTuple.dll
+C:\OneDrive\OneDrive-AssaAbloyInc\HFC Internal Share\Technical\Code\unit tests\.net\DotNet-4.5.2\bin\Debug\FargoConnect.CardServices.ClientSdk.xml
+C:\OneDrive\OneDrive-AssaAbloyInc\HFC Internal Share\Technical\Code\unit tests\.net\DotNet-4.5.2\bin\Debug\Newtonsoft.Json.xml
+C:\OneDrive\OneDrive-AssaAbloyInc\HFC Internal Share\Technical\Code\unit tests\.net\DotNet-4.5.2\bin\Debug\RestSharp.xml
+C:\OneDrive\OneDrive-AssaAbloyInc\HFC Internal Share\Technical\Code\unit tests\.net\DotNet-4.5.2\bin\Debug\System.ValueTuple.xml
+C:\OneDrive\OneDrive-AssaAbloyInc\HFC Internal Share\Technical\Code\unit tests\.net\DotNet-4.5.2\obj\Debug\FargoConnectSdkExampleDotNet452.csproj.AssemblyReference.cache
+C:\OneDrive\OneDrive-AssaAbloyInc\HFC Internal Share\Technical\Code\unit tests\.net\DotNet-4.5.2\obj\Debug\FargoConnectSdkExampleDotNet452.csproj.CoreCompileInputs.cache
+C:\OneDrive\OneDrive-AssaAbloyInc\HFC Internal Share\Technical\Code\unit tests\.net\DotNet-4.5.2\obj\Debug\FargoConnectSdkExampleDotNet452.csproj.CopyComplete
+C:\OneDrive\OneDrive-AssaAbloyInc\HFC Internal Share\Technical\Code\unit tests\.net\DotNet-4.5.2\obj\Debug\FargoConnect.CardServices.ClientSdk.Examples.pdb
+C:\OneDrive\OneDrive-AssaAbloyInc\HFC Internal Share\Technical\Code\unit tests\.net\DotNet-4.5.2\bin\Debug\FargoConnect.CardServices.ClientSdk.Examples.dll.config
+C:\OneDrive\OneDrive-AssaAbloyInc\HFC Internal Share\Technical\Code\unit tests\.net\DotNet-4.5.2\bin\Debug\FargoConnect.CardServices.ClientSdk.Examples.dll
+C:\OneDrive\OneDrive-AssaAbloyInc\HFC Internal Share\Technical\Code\unit tests\.net\DotNet-4.5.2\obj\Debug\FargoConnect.CardServices.ClientSdk.Examples.dll

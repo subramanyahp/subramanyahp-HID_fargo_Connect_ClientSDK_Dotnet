@@ -21,33 +21,37 @@ namespace FargoConnectSdkExamples
   /// </summary>
   public class Program
   {
-    /// <summary>
-    /// Server API key configured in the FARGO Connect platform
-    /// </summary>
-    private const string TestServerApiKey = "528DFB0B54B2438A5F631E94754BA4DA088E0EA1CF9700EF4ACE0B4C6D49F957";
+        /// <summary>
+        /// Server API key configured in the FARGO Connect platform
+        /// </summary>
+        private string testServerApiKey; // = "528DFB0B54B2438A5F631E94754BA4DA088E0EA1CF9700EF4ACE0B4C6D49F957";
 
-    /// <summary>
-    /// Base URL of the FARGO Connect integration server
-    /// </summary>
-    private const string TestServerUrl = "https://test.api.hfc.hidglobal.com:18443";
+        /// <summary>
+        /// Base URL of the FARGO Connect integration server
+        /// </summary>
+        private string testServerUrl;// = "https://test.api.hfc.hidglobal.com:18443";
+        private string sSL_Cert_Path;// = @"C:\OneDrive\OneDrive-AssaAbloyInc\HFC Internal Share\Certificates\archive\Schlumberger-Development-Certs\C#\Schlumberger_Card_Services_Client_API_Auth_Cert.p12";
+        private string sSL_Cert_Pwd;// = "xgWkY3uwSDX2JX1qyvi7";
 
+        public string TestServerApiKey { get => testServerApiKey; set => testServerApiKey = value; }
+        public string TestServerUrl { get => testServerUrl; set => testServerUrl = value; }
+        public string SSL_Cert_Path { get => sSL_Cert_Path; set => sSL_Cert_Path = value; }
+        public string SSL_Cert_Pwd { get => sSL_Cert_Pwd; set => sSL_Cert_Pwd = value; }
 
-        
-
-     private const string SSL_Cert_Path = @"C:\OneDrive\OneDrive-AssaAbloyInc\HFC Internal Share\Certificates\archive\Schlumberger-Development-Certs\C#\Schlumberger_Card_Services_Client_API_Auth_Cert.p12";
-     private const string SSL_Cert_Pwd = "xgWkY3uwSDX2JX1qyvi7";
-
-        public string getTestServerUrl()
+        public Program(string testServerApiKey, string testServerUrl, string sSL_Cert_Path, string sSL_Cert_Pwd)
         {
-            return TestServerUrl;
+            TestServerApiKey = testServerApiKey;
+            TestServerUrl = testServerUrl;
+            SSL_Cert_Path = sSL_Cert_Path;
+            SSL_Cert_Pwd = sSL_Cert_Pwd;
         }
 
-
-        public static void Main(string[] args)
+        //TODO comment out everything that we dont need. It might be better to move the required parts to its own class file.
+      /*  public static void Main(string[] args)
     {
-      /*
+      *//*
        * Ensure the test server API key and URL are configured
-       */
+       *//*
       if (String.IsNullOrWhiteSpace(TestServerApiKey) || String.IsNullOrWhiteSpace(TestServerUrl))
       {
         Console.WriteLine();
@@ -58,31 +62,31 @@ namespace FargoConnectSdkExamples
         return;
       }
 
-      /*
+      *//*
        * Prompt the user to select the client authentication certificate
-       */
+       *//*
       if (!SelectClientAuthCertificate(out var clientAuthCertificate))
       {
         Console.WriteLine("No client authentication certificate selected");
         return;
       }
 
-      /*
+      *//*
        * Display certificate information for debug purposes
-       */
+       *//*
       Console.WriteLine($"Using client certificate: {clientAuthCertificate.FriendlyName}");
       Console.WriteLine();
 
-      /*
+      *//*
        * Create a FARGO Connect client instance
-       */
+       *//*
       var cardServicesClient = ConfigureClient(TestServerUrl, TestServerApiKey, clientAuthCertificate);
 
       try
       {
-        /*
+        *//*
          * List the available organizations and select the first one for demo purposes.
-         */
+         *//*
         if (!SelectOrganization(cardServicesClient, out var organization))
         {
           return;
@@ -91,15 +95,15 @@ namespace FargoConnectSdkExamples
         Console.WriteLine($"Using organization: {organization.Name}");
         Console.WriteLine();
 
-        /*
+        *//*
          * Show information about the selected organization and devices
-         */
+         *//*
         ShowOrganizationInfo(cardServicesClient, organization.OrganizationId);
 
-        /*
+        *//*
          * List the available production profiles for the selected organization and select
          * the first production profile for demo purposes.
-         */
+         *//*
         if (!SelectProductionProfile(cardServicesClient, organization.OrganizationId, out var productionProfile))
         {
           return;
@@ -108,10 +112,10 @@ namespace FargoConnectSdkExamples
         Console.WriteLine($"Using production profile: {productionProfile.Name}");
         Console.WriteLine();
 
-        /*
+        *//*
          * List the available print destinations for the selected organization and select
          * the first print destination for demo purposes.
-         */
+         *//*
         if (!SelectPrintDestination(cardServicesClient, organization.OrganizationId, out var printDestination))
         {
           return;
@@ -120,41 +124,41 @@ namespace FargoConnectSdkExamples
         Console.WriteLine($"Using print destination: {printDestination.Destination}");
         Console.WriteLine();
 
-        /*
+        *//*
          * Retrieve the configuration parameters for the production profile
-         */
+         *//*
         var profileConfig = cardServicesClient.ProductionProfileApi.GetProductionProfileParameters(productionProfile.ProfileId);
 
-        /*
+        *//*
          * Process the list of profile configuration parameters. By default only a single
          * parameter named "CardType" of type ListParameter is required for card production
          * requests. The "CardType" parameter is essentially a configurable enumerated type that
          * maps a logical card type name (e.g. "Employee", "Student" etc) to a card template.
-         */
+         *//*
         foreach (var profileParam in profileConfig.ProfileParameters)
         {
-          /*
+          *//*
            * Fail if an unexpected parameter type is present
-           */
+           *//*
           if (profileParam.DataType != DataType.List || string.CompareOrdinal(profileParam.Name, ProfileParamConst.CardType) != 0)
           {
             throw new Exception($"Unhandled production profile parameter type: {profileParam.DataType.ToString()}");
           }
 
-          /*
+          *//*
            * Show the available card types for debug purposes
-           */
+           *//*
           var cardTypeParam = (ListParameter) profileParam;
 
           Console.WriteLine("Available card types");
           cardTypeParam.Options.ToList().ForEach(cardType => Console.WriteLine($"  '{cardType}'"));
           Console.WriteLine();
 
-          /*
+          *//*
            * Arbitrarily select the first card type for demo purposes. The supported card
            * types are normally known in advance and the Option property is used to validate
            * whether the desired card type is a valid option.
-           */
+           *//*
           var selectedCardType = cardTypeParam.Options.First();
           cardTypeParam.Value = selectedCardType;
 
@@ -165,49 +169,49 @@ namespace FargoConnectSdkExamples
         Console.WriteLine("Configuring the production request");
         Console.WriteLine();
 
-        /*
+        *//*
          * Configure the production profile to obtain a production request template for
          * the previously selected "CardType" value.
-         */
+         *//*
         var productionRequestTemplate = cardServicesClient.ProductionProfileApi.ConfigureProductionProfile(profileConfig);
 
-        /*
+        *//*
          * Iterate over the services in the production request template. By default,
          * only one card production service will be present in the request template.
-         */
+         *//*
         Console.WriteLine("Configuring service parameters");
 
         foreach (var service in productionRequestTemplate.Services)
         {
-          /*
+          *//*
            * Fail if an unexpected service type is present
-           */
+           *//*
           if (service.Type != ServiceType.CardRequest)
           {
             throw new Exception($"Unhandled production service type: {service.Type.ToString()}");
           }
 
-          /*
+          *//*
            * Process the card production request parameters
-           */
+           *//*
           var cardRequest = (CardRequestService) service;
 
           for (var i = 0; i < cardRequest.Parameters.Count; i++)
           {
             var dataParameter = cardRequest.Parameters[i];
 
-            /*
+            *//*
              * Cast the parameter to the correct class based on DataType. An error is
              * raised for parameter types other than Text and Image since those are the
              * only types configured for the demo. 
-             */
+             *//*
             switch (dataParameter.Data.DataType)
             {
               case DataType.Text:
-                /*
+                *//*
                  * Set the Text parameter Value to the parameter's Name for demo purposes.
                  * The text value would normally be supplied by the application.
-                 */
+                 *//*
                 var textParam = (TextParameter) dataParameter.Data;
                 textParam.Value = textParam.Name;
 
@@ -215,12 +219,12 @@ namespace FargoConnectSdkExamples
                 break;
 
               case DataType.Image:
-                /*
+                *//*
                  * Set the Image parameter Value to a test image for demo purposes. The
                  * image would normally be supplied by the application. The PreferredWidth
                  * and PreferredHeight properties indicate the preferred image dimensions
                  * and aspect ratio. The default value is -1 (indicates no preference)
-                 */
+                 *//*
                 var imageParam = (ImageParameter) dataParameter.Data;
                 imageParam.ImageStream = new FileStream(@"photos\testimage.png", FileMode.Open, FileAccess.Read, FileShare.Read);
 
@@ -234,39 +238,39 @@ namespace FargoConnectSdkExamples
             }
           }
 
-          /*
+          *//*
            * Configure the print destination and job displayed on the console
-           */
+           *//*
           cardRequest.Destination = printDestination.Destination;
           cardRequest.RequestName = "Test card request";
 
-          /*
+          *//*
            * Advanced SDK feature: Override the printer input hopper selection configured in the
            * card template. The default is to use the input hopper selected in the card template
            * unless explicitly overridden by a job service option setting as shown here.
-           */
+           *//*
           cardRequest.ServiceOptions.Add(PrinterOption.InputHopperSelect, PrinterOption.UseHopper1);
         }
 
-        /*
+        *//*
          * Submit the job to the server for processing. The return job Id is typically
          * stored by the application and used to monitor job status and retrieve
          * job results using JobApi methods.
-         */
+         *//*
         var submittedJobId = cardServicesClient.JobApi.SubmitProductionRequest(productionRequestTemplate);
 
         Console.WriteLine();
         Console.WriteLine("Job submitted successfully. Job unique Id = {0}", submittedJobId);
 
-        /*
+        *//*
          * Query the server for a list of jobs submitted within the last 24 hours
-         */
+         *//*
         ShowRecentJobs(cardServicesClient);
 
-        /*
+        *//*
          * Query the server for details of the submitted job. The job status will be "Submitted"
          * pending completion of job.
-         */
+         *//*
         ShowJobDetails(cardServicesClient, submittedJobId);
 
       }
@@ -283,13 +287,13 @@ namespace FargoConnectSdkExamples
       Console.WriteLine("Press any key to close...");
       Console.ReadKey();
     }
-
+*/
     /**
      * Demonstrates querying the server for jobs submitted within on a defines look-back
      * period. This is useful for displaying recent job activity. The GetJobsForDateRange
      * method can be used for the same purpose, but provides additional flexibility.
      */
-    private static void ShowRecentJobs(CardServicesClient cardServicesClient)
+   /* private static void ShowRecentJobs(CardServicesClient cardServicesClient)
     {
       Console.WriteLine();
       Console.WriteLine("Recent job  details");
@@ -305,13 +309,13 @@ namespace FargoConnectSdkExamples
         Console.WriteLine();
       }
     }
-
+*/
     /// <summary>
     /// Queries the sever for the job corresponding to the specified unique job Id.
     /// </summary>
     /// <param name="cardServicesClient">Card services client</param>
     /// <param name="jobUniqueId">Job unique Id returned during job submission</param>
-    private static void ShowJobDetails(CardServicesClient cardServicesClient, string jobUniqueId)
+  /*  private static void ShowJobDetails(CardServicesClient cardServicesClient, string jobUniqueId)
     {
       Console.WriteLine();
       Console.WriteLine("Retrieving job details");
@@ -326,17 +330,17 @@ namespace FargoConnectSdkExamples
       Console.WriteLine("Date Submitted........: {0}", jobDetails.SubmitDate.ToLocalTime());
       Console.WriteLine("Last Updated..........: {0}", jobDetails.LastUpdate.ToLocalTime());
 
-      /*
+      *//*
        * Show job results if the job printed successfully
-       */
-      if (string.Equals(jobDetails.JobStatus, JobStatus.Printed))
+       *//*
+      if (string.Equals(jobDetails.JobStatus, FargoConnect.CardServices.RestApi.Model.JobStatus.Printed))
       {
         var cardReadResults = jobDetails.ServiceData.CardReadResults;
         Console.WriteLine("Card Read Results.....: {0} Card Edge(s) Found", cardReadResults.CardEdges.Count);
 
         if (cardReadResults.CardEdges.Count > 0)
         {
-          /*
+          *//*
            * Show the details for each of the card edges found. All card edges discovered
            * are returned. Card types enabled in the Card Read Service configuration in
            * the card template have an Enabled value of true.
@@ -344,7 +348,7 @@ namespace FargoConnectSdkExamples
            * Note: Some card technologies such as HID_ICLASS support multiple frame
            *   protocols and may be reported in the results more than once. The
            *   CardSerialNumber and PACS data should be identical when this occurs.
-           */
+           *//*
           foreach (var cardEdge in cardReadResults.CardEdges)
           {
             Console.WriteLine();
@@ -356,21 +360,21 @@ namespace FargoConnectSdkExamples
             Console.WriteLine("  Card Serial Number..: {0}", cardEdge.CardSerialNumber);
             Console.WriteLine("  PACS Data Available.: {0}", cardEdge.PacsDataAvailable);
 
-            /*
+            *//*
              * Display the card PACS bits and decoded PACS data for the card edge
-             */
+             *//*
             if (cardEdge.PacsDataAvailable)
             {
               Console.WriteLine("  PACS Bit Data.......: 0x{0}", cardEdge.CardPacsBitData);
               Console.WriteLine("  PACS Bit Count......: {0}", cardEdge.CardPacsBitCount);
 
-              /*
+              *//*
                * Show the PACS decode results for each card format configured for
                * this card edge in the card designer. The decoded PACS data is only
                * valid when the DecodeStatus is "Success". The application developer
                * must ensure the correct format(s) are configured in the card designer
                * and provide appropriate format selection and error handling logic.
-               */
+               *//*
               cardEdge.PacsData.ForEach(decodeResult =>
               {
                 Console.WriteLine();
@@ -381,7 +385,7 @@ namespace FargoConnectSdkExamples
                 Console.WriteLine("    Card Number.......: {0}", decodeResult.CardNumber);
                 Console.WriteLine("    PACS Data Fields:");
 
-                /*
+                *//*
                  * List the data fields extracted from the PACS bits. The list
                  * of fields and their names are defined by the card format and
                  * should not be assumed to be consistent across card formats.
@@ -390,7 +394,7 @@ namespace FargoConnectSdkExamples
                  *   is is a mandatory field, but the name of the field may vary
                  *   across card formats. Please use the CardNumber property
                  *   instead.
-                 */
+                 *//*
                 foreach (var pacsField in decodeResult.PacsFields)
                 {
                   Console.WriteLine("      {0} -> {1}", pacsField.Key, pacsField.Value);
@@ -398,10 +402,10 @@ namespace FargoConnectSdkExamples
               });
             }
 
-            /*
+            *//*
              * Show additional key/value pairs returned for the card edge. This is
              * used to return ad-hoc data values for specialized applications.
-             */
+             *//*
             if (cardEdge.Data.Count > 0)
             {
               Console.WriteLine();
@@ -454,7 +458,7 @@ namespace FargoConnectSdkExamples
       //        Facility Code-> 115
       //        Card Number -> 679123    
     }
-
+*/
     /// <summary>
     /// Lists the available organizations and arbitrarily selects and returns the first 
     /// organization for demo purposes. Organization identifiers are designed to be stable 
@@ -463,7 +467,7 @@ namespace FargoConnectSdkExamples
     /// <param name="cardServicesClient">Card services client</param>
     /// <param name="organization">Selected organization</param>
     /// <returns>True if an organization was selected</returns>
-    private static bool SelectOrganization(CardServicesClient cardServicesClient, out Organization organization)
+   /* private static bool SelectOrganization(CardServicesClient cardServicesClient, out Organization organization)
     {
       var organizations = cardServicesClient.OrganizationApi.GetOrganizations();
 
@@ -481,7 +485,7 @@ namespace FargoConnectSdkExamples
       organization = organizations[0];
       return true;
     }
-
+*/
     /// <summary>
     /// Lists the organizational units and locations within the specified organization. The
     /// organizational structure is loosely based on the X.500 directory model and has a fixed
@@ -491,28 +495,28 @@ namespace FargoConnectSdkExamples
     /// </summary>
     /// <param name="cardServicesClient">Card services client</param>
     /// <param name="organizationId">Organization unique Id</param>
-    private static void ShowOrganizationInfo(CardServicesClient cardServicesClient, string organizationId)
+   /* private static void ShowOrganizationInfo(CardServicesClient cardServicesClient, string organizationId)
     {
-      /*
+      *//*
        * Enumerate the organizational units within the organization
-       */
+       *//*
       Console.WriteLine("Organizational Units for Organization {0}", organizationId);
       var organizationalUnits = cardServicesClient.OrganizationApi.GetOrganizationalUnits(organizationId);
       organizationalUnits.ForEach(orgUnit => Console.WriteLine("  {0} -> {1}", orgUnit.OrganizationUnitId, orgUnit.Name));
       Console.WriteLine();
 
-      /*
+      *//*
        * Enumerate the locations for the organization. Note that Locations exist within
        * Organizational Units, but are listed here across all Organizational Units for
        * simplicity. Use the GetOrganizationUnitLocations method to query Locations by
        * organizational unit.
-       */
+       *//*
       Console.WriteLine("Locations for Organization {0}", organizationId);
       var locations = cardServicesClient.OrganizationApi.GetOrganizationLocations(organizationId);
       locations.ForEach(location => Console.WriteLine("  {0} -> {1}", location.LocationId, location.LocationName));
       Console.WriteLine();
     }
-
+*/
     /// <summary>
     /// Lists the available production profiles for the given organization and arbitrarily 
     /// selects and returns the first production profile for demo purposes. Production
@@ -522,7 +526,7 @@ namespace FargoConnectSdkExamples
     /// <param name="organizationId">Organization unique Id</param>
     /// <param name="productionProfile">Selected production profile</param>
     /// <returns>True if a production profile was selected</returns>
-    private static bool SelectProductionProfile(CardServicesClient cardServicesClient,
+   /* private static bool SelectProductionProfile(CardServicesClient cardServicesClient,
       string organizationId, out ProductionProfile productionProfile)
     {
       var productionProfiles = cardServicesClient.ProductionProfileApi.GetProductionProfiles(organizationId);
@@ -541,7 +545,7 @@ namespace FargoConnectSdkExamples
       productionProfile = productionProfiles[0];
       return true;
     }
-
+*/
     /// <summary>
     /// Lists the available print destinations for the given organization and arbitrarily 
     /// selects and returns the first print destination for demo purposes. Print destination
@@ -551,7 +555,7 @@ namespace FargoConnectSdkExamples
     /// <param name="organizationId">Organization unique Id</param>
     /// <param name="printDestination">Selected print destination</param>
     /// <returns>True if a production profile was selected</returns>
-    private static bool SelectPrintDestination(CardServicesClient cardServicesClient,
+  /*  private static bool SelectPrintDestination(CardServicesClient cardServicesClient,
       string organizationId, out PrintDestination printDestination)
     {
       var printDestinations = cardServicesClient.DeviceApi.GetPrintDestinations(organizationId);
@@ -570,7 +574,7 @@ namespace FargoConnectSdkExamples
       printDestination = printDestinations[0];
       return true;
     }
-
+*/
     /// <summary>
     /// Prompts the user to select a client authentication certificate using the system 
     /// certificate selection dialog. This selection method was chosen purely for demo 
@@ -579,7 +583,7 @@ namespace FargoConnectSdkExamples
     /// </summary>
     /// <param name="clientCertificate">Selected certificate or null if none</param>
     /// <returns>True if a certificate was selected</returns>
-    private static bool SelectClientAuthCertificate(out X509Certificate2 clientCertificate)
+  /*  private static bool SelectClientAuthCertificate(out X509Certificate2 clientCertificate)
     {
       var certificateStore = new X509Store(StoreName.My, StoreLocation.CurrentUser);
 
@@ -609,11 +613,11 @@ namespace FargoConnectSdkExamples
       // the client authentication certificate. The line below, for example, loads a certificate
       // in PKCS#12 format from the local file system.
       // 
-       clientCertificate = new X509Certificate2(File.ReadAllBytes(@"C:\HFCCertification\Schlumberger-Development-Certs\Java\Schlumberger_Card_Services_Client_API_Auth_Cert.p12"), "xgWkY3uwSDX2JX1qyvi7");
+       clientCertificate = new X509Certificate2(File.ReadAllBytes(SSL_Cert_Path), SSL_Cert_Pwd);
 
       return true;
     }
-
+*/
     /// <summary>
     /// Creates and configures a new client instance
     /// </summary>
@@ -621,7 +625,7 @@ namespace FargoConnectSdkExamples
     /// <param name="apiKey">Server API key</param>
     /// <param name="clientCert">Client authentication cert</param>
     /// <returns></returns>
-    private static CardServicesClient ConfigureClient(string serverUrl, string apiKey, X509Certificate2 clientCert)
+   private CardServicesClient ConfigureClient(string serverUrl, string apiKey, X509Certificate2 clientCert)
     {
       var clientConfig = new CardServicesClientConfig
       {
@@ -636,11 +640,19 @@ namespace FargoConnectSdkExamples
         // SuccessTest cases methods:
         public String orgname()
       {
-            var clientCertificate = new X509Certificate2(File.ReadAllBytes(@"C:\HFCCertification\Schlumberger-Development-Certs\Java\Schlumberger_Card_Services_Client_API_Auth_Cert.p12"), "xgWkY3uwSDX2JX1qyvi7");    
+            var clientCertificate = new X509Certificate2(File.ReadAllBytes(SSL_Cert_Path), SSL_Cert_Pwd);    
             var cardServicesClient = ConfigureClient(TestServerUrl, TestServerApiKey, clientCertificate);
             Organization org = SelectOrganizations(cardServicesClient, out Organization organization);
             return org.Name;
       }
+
+        public String orgUnitname(string OrgUnitID)
+        {
+            var clientCertificate = new X509Certificate2(File.ReadAllBytes(SSL_Cert_Path), SSL_Cert_Pwd);
+            var cardServicesClient = ConfigureClient(TestServerUrl, TestServerApiKey, clientCertificate);
+            OrganizationalUnit orgUnit = SelectOrganizationUnits(cardServicesClient, OrgUnitID, out OrganizationalUnit organizationUnit);
+            return orgUnit.Name;
+        }
 
         private static Organization SelectOrganizations(CardServicesClient cardServicesClient, out Organization organization)
         {
@@ -662,17 +674,88 @@ namespace FargoConnectSdkExamples
             return organization;
         }
 
-        public String orgID()
+        private static OrganizationalUnit SelectOrganizationUnits(CardServicesClient cardServicesClient, string OrgUnitID, out OrganizationalUnit organizationUnit)
         {
-            var clientCertificate = new X509Certificate2(File.ReadAllBytes(@"C:\HFCCertification\Schlumberger-Development-Certs\Java\Schlumberger_Card_Services_Client_API_Auth_Cert.p12"), "xgWkY3uwSDX2JX1qyvi7");
+            //var organizations = cardServicesClient.OrganizationApi.GetOrganizations();
+            var organizationUnits = cardServicesClient.OrganizationApi.GetOrganizationalUnits(OrgUnitID);
+
+            if (organizationUnits.Count < 1)
+            {
+                Console.WriteLine("No organizationUnits found");
+                organizationUnit = null;
+                return null;
+            }
+
+            Console.WriteLine("Available organizations");
+            organizationUnits.ForEach(org => Console.WriteLine($"  {org.OrganizationUnitId} -> {org.Name}"));
+            Console.WriteLine();
+
+            organizationUnit = organizationUnits[0];
+            return organizationUnit;
+        }
+
+        private static Organization SelectOrganizationsById(CardServicesClient cardServicesClient, String orgId, out Organization organization)
+        {
+            //var organizations = cardServicesClient.OrganizationApi.GetOrganizations();
+            var organizations = cardServicesClient.OrganizationApi.GetOrganization(orgId);
+
+          
+
+            Console.WriteLine("Available organizations");
+            Console.WriteLine(organizations.OrganizationId + organizations.Name);
+            Console.WriteLine();
+
+            organization = organizations;
+            return organization;
+        }
+        private static OrganizationalUnit SelectOrganizationslUnitsById(CardServicesClient cardServicesClient, String orgUnitId, out OrganizationalUnit organizationUnit)
+        {
+            //var organizations = cardServicesClient.OrganizationApi.GetOrganizations();
+            var organizationUnits = cardServicesClient.OrganizationApi.GetOrganizationalUnit(orgUnitId);
+
+
+
+            Console.WriteLine("Available organizations");
+            Console.WriteLine(organizationUnits.OrganizationUnitId + organizationUnits.Name);
+            Console.WriteLine();
+
+            organizationUnit = organizationUnits;
+            return organizationUnit;
+        }
+        private static Device SelectDeviceById(CardServicesClient cardServicesClient, String deviceId)
+        {
+            //var organizations = cardServicesClient.OrganizationApi.GetOrganizations();
+            var devices = cardServicesClient.DeviceApi.GetDevice(deviceId);
+
+
+
+            Console.WriteLine("Available device");
+            Console.WriteLine(devices.DeviceUniqueId + devices.DeviceName);
+            Console.WriteLine();
+
+            
+            return devices;
+        }
+
+        public String orgID(String OrgId)
+        {
+            var clientCertificate = new X509Certificate2(File.ReadAllBytes(SSL_Cert_Path), SSL_Cert_Pwd);
             var cardServicesClient = ConfigureClient(TestServerUrl, TestServerApiKey, clientCertificate);
-            Organization org = SelectOrganizations(cardServicesClient, out Organization organization); 
+            Organization org = SelectOrganizationsById(cardServicesClient, OrgId, out Organization organization); 
             return org.OrganizationId;
+        }
+
+        public String orgUnitID(String OrgUnitId)
+        {
+            var clientCertificate = new X509Certificate2(File.ReadAllBytes(SSL_Cert_Path), SSL_Cert_Pwd);
+            var cardServicesClient = ConfigureClient(TestServerUrl, TestServerApiKey, clientCertificate);
+            OrganizationalUnit orgUnit = SelectOrganizationslUnitsById(cardServicesClient, OrgUnitId, out OrganizationalUnit organizationUnit);
+            return orgUnit.OrganizationUnitId;
         }
 
         public String location()
         {
-            var clientCertificate = new X509Certificate2(File.ReadAllBytes(@"C:\HFCCertification\Schlumberger-Development-Certs\Java\Schlumberger_Card_Services_Client_API_Auth_Cert.p12"), "xgWkY3uwSDX2JX1qyvi7");
+            var clientCertificate = new X509Certificate2(File.ReadAllBytes(SSL_Cert_Path), SSL_Cert_Pwd);
             var cardServicesClient = ConfigureClient(TestServerUrl, TestServerApiKey, clientCertificate);
             Organization org = SelectOrganizations(cardServicesClient, out Organization organization);
             Location Location = showOrganizationlocation(cardServicesClient, org.OrganizationId);
@@ -687,23 +770,46 @@ namespace FargoConnectSdkExamples
             Console.WriteLine();
             return locations[0];
         }
-
-        public String locationID()
+        private static Location showOrganizationlocationId(CardServicesClient client, String organizationId, String locationId)
         {
-            var clientCertificate = new X509Certificate2(File.ReadAllBytes(@"C:\HFCCertification\Schlumberger-Development-Certs\Java\Schlumberger_Card_Services_Client_API_Auth_Cert.p12"), "xgWkY3uwSDX2JX1qyvi7");
+            Console.WriteLine("Locations for Organization {0}", organizationId);
+            var locations = client.OrganizationApi.GetLocation(locationId);
+            return locations;
+        }
+
+        public String locationID(String locationId)
+        {
+            var clientCertificate = new X509Certificate2(File.ReadAllBytes(SSL_Cert_Path), SSL_Cert_Pwd);
             var cardServicesClient = ConfigureClient(TestServerUrl, TestServerApiKey, clientCertificate);
             Organization org = SelectOrganizations(cardServicesClient, out Organization organization);
-            Location Location = showOrganizationlocation(cardServicesClient, org.OrganizationId);
+            Location Location = showOrganizationlocationId(cardServicesClient, org.OrganizationId, locationId);
             return Location.LocationId;
+        }
+
+        public String deviceID(String deviceId)
+        {
+            var clientCertificate = new X509Certificate2(File.ReadAllBytes(SSL_Cert_Path), SSL_Cert_Pwd);
+            var cardServicesClient = ConfigureClient(TestServerUrl, TestServerApiKey, clientCertificate);
+            Device device = SelectDeviceById(cardServicesClient,deviceId);
+            return device.DeviceUniqueId;
         }
 
         public String productionProfileName()
         {
-            var clientCertificate = new X509Certificate2(File.ReadAllBytes(@"C:\HFCCertification\Schlumberger-Development-Certs\Java\Schlumberger_Card_Services_Client_API_Auth_Cert.p12"), "xgWkY3uwSDX2JX1qyvi7");
+            var clientCertificate = new X509Certificate2(File.ReadAllBytes(SSL_Cert_Path), SSL_Cert_Pwd);
             var cardServicesClient = ConfigureClient(TestServerUrl, TestServerApiKey, clientCertificate);
             Organization org = SelectOrganizations(cardServicesClient, out Organization organization);
             ProductionProfile productionProfile = SelectProductionProfileTest(cardServicesClient, organization.OrganizationId,out ProductionProfile profile);
             return productionProfile.Name;
+        }
+
+        public String deviceName()
+        {
+            var clientCertificate = new X509Certificate2(File.ReadAllBytes(SSL_Cert_Path), SSL_Cert_Pwd);
+            var cardServicesClient = ConfigureClient(TestServerUrl, TestServerApiKey, clientCertificate);
+            Organization org = SelectOrganizations(cardServicesClient, out Organization organization);
+            Device device = SelectDeviceTest(cardServicesClient, organization.OrganizationId);
+            return device.DeviceName;
         }
 
         private static ProductionProfile SelectProductionProfileTest(CardServicesClient cardServicesClient,
@@ -726,25 +832,54 @@ namespace FargoConnectSdkExamples
             return productionProfile;
         }
 
-        public String productionProfileID()
+        private static Device SelectDeviceTest(CardServicesClient cardServicesClient,
+           string organizationId)
         {
-            var clientCertificate = new X509Certificate2(File.ReadAllBytes(@"C:\HFCCertification\Schlumberger-Development-Certs\Java\Schlumberger_Card_Services_Client_API_Auth_Cert.p12"), "xgWkY3uwSDX2JX1qyvi7");
+            var devicess = cardServicesClient.DeviceApi.GetDevices(organizationId);
+
+            if (devicess.Count < 1)
+            {
+                Console.WriteLine("No devices found");
+                devicess = null;
+                return null;
+            }
+
+            Console.WriteLine("Available devices");
+            devicess.ForEach(device => Console.WriteLine($"  {device.DeviceUniqueId} -> {device.DeviceName}"));
+            Console.WriteLine();
+
+            
+            return devicess[0];
+        }
+
+        private static ProductionProfile SelectProductionProfileIdTest(CardServicesClient cardServicesClient,
+           string organizationId, string productionProfileId, out ProductionProfile productionProfile)
+        {
+            var productionProfiles = cardServicesClient.ProductionProfileApi.GetProductionProfile(productionProfileId);
+
+           productionProfile = productionProfiles;
+            return productionProfile;
+        }
+
+        public String productionProfileID(string profileId)
+        {
+            var clientCertificate = new X509Certificate2(File.ReadAllBytes(SSL_Cert_Path), SSL_Cert_Pwd);
             var cardServicesClient = ConfigureClient(TestServerUrl, TestServerApiKey, clientCertificate);
             Organization org = SelectOrganizations(cardServicesClient, out Organization organization);
-            ProductionProfile productionProfile = SelectProductionProfileTest(cardServicesClient, organization.OrganizationId, out ProductionProfile profile);
+            ProductionProfile productionProfile = SelectProductionProfileIdTest(cardServicesClient, organization.OrganizationId, profileId, out ProductionProfile profile);
             return productionProfile.ProfileId;
         }
 
         public String PrintDest()
         {
-            var clientCertificate = new X509Certificate2(File.ReadAllBytes(@"C:\HFCCertification\Schlumberger-Development-Certs\Java\Schlumberger_Card_Services_Client_API_Auth_Cert.p12"), "xgWkY3uwSDX2JX1qyvi7");
+            var clientCertificate = new X509Certificate2(File.ReadAllBytes(SSL_Cert_Path), SSL_Cert_Pwd);
             var cardServicesClient = ConfigureClient(TestServerUrl, TestServerApiKey, clientCertificate);
             Organization org = SelectOrganizations(cardServicesClient, out Organization organization);
             PrintDestination printDestination = SelectPrintDestinationTest(cardServicesClient, organization.OrganizationId, out PrintDestination printDest);
             return printDestination.PrinterName;
         }
 
-        private static PrintDestination SelectPrintDestinationTest(CardServicesClient cardServicesClient,
+        private  PrintDestination SelectPrintDestinationTest(CardServicesClient cardServicesClient,
       string organizationId, out PrintDestination printDestination)
         {
             var printDestinations = cardServicesClient.DeviceApi.GetPrintDestinations(organizationId);
@@ -763,10 +898,21 @@ namespace FargoConnectSdkExamples
             printDestination = printDestinations[0];
             return printDestination;
         }
+        public String JobStatus(String JobID)
+        {
+            var clientCertificate = new X509Certificate2(File.ReadAllBytes(SSL_Cert_Path), SSL_Cert_Pwd);
+            var cardServicesClient = ConfigureClient(TestServerUrl, TestServerApiKey, clientCertificate);
+            CardServicesClient client = cardServicesClient;
+            String Status = "";
+            Job jobDetails = cardServicesClient.JobApi.GetJob(JobID);
+            Status = jobDetails.JobStatus;
+            return Status;
+        }
 
+        //TODO, clean up the ones we dont use
         public String JobStatusFailed()
         {
-            var clientCertificate = new X509Certificate2(File.ReadAllBytes(@"C:\HFCCertification\Schlumberger-Development-Certs\Java\Schlumberger_Card_Services_Client_API_Auth_Cert.p12"), "xgWkY3uwSDX2JX1qyvi7");
+            var clientCertificate = new X509Certificate2(File.ReadAllBytes(SSL_Cert_Path), SSL_Cert_Pwd);
             var cardServicesClient = ConfigureClient(TestServerUrl, TestServerApiKey, clientCertificate);
             CardServicesClient client = cardServicesClient;
             String Status = "";
@@ -777,7 +923,7 @@ namespace FargoConnectSdkExamples
 
         public String JobStatusPrinted()
         {
-            var clientCertificate = new X509Certificate2(File.ReadAllBytes(@"C:\HFCCertification\Schlumberger-Development-Certs\Java\Schlumberger_Card_Services_Client_API_Auth_Cert.p12"), "xgWkY3uwSDX2JX1qyvi7");
+            var clientCertificate = new X509Certificate2(File.ReadAllBytes(SSL_Cert_Path), SSL_Cert_Pwd);
             var cardServicesClient = ConfigureClient(TestServerUrl, TestServerApiKey, clientCertificate);
             CardServicesClient client = cardServicesClient;
             String Status = "";
@@ -789,7 +935,7 @@ namespace FargoConnectSdkExamples
 
         public String JobStatusSubmitted()
         {
-            var clientCertificate = new X509Certificate2(File.ReadAllBytes(@"C:\HFCCertification\Schlumberger-Development-Certs\Java\Schlumberger_Card_Services_Client_API_Auth_Cert.p12"), "xgWkY3uwSDX2JX1qyvi7");
+            var clientCertificate = new X509Certificate2(File.ReadAllBytes(SSL_Cert_Path), SSL_Cert_Pwd);
             var cardServicesClient = ConfigureClient(TestServerUrl, TestServerApiKey, clientCertificate);
             CardServicesClient client = cardServicesClient;
             String Status = "";
@@ -799,10 +945,10 @@ namespace FargoConnectSdkExamples
 
         }
 
-        public String Prod()
+        public String GetCardType()
         {
             String cardtypes = "";
-            var clientCertificate = new X509Certificate2(File.ReadAllBytes(@"C:\HFCCertification\Schlumberger-Development-Certs\Java\Schlumberger_Card_Services_Client_API_Auth_Cert.p12"), "xgWkY3uwSDX2JX1qyvi7");
+            var clientCertificate = new X509Certificate2(File.ReadAllBytes(SSL_Cert_Path), SSL_Cert_Pwd);
             var cardServicesClient = ConfigureClient(TestServerUrl, TestServerApiKey, clientCertificate);
             Organization org = SelectOrganizations(cardServicesClient, out Organization organization);
             CardServicesClient client = cardServicesClient;
@@ -843,45 +989,87 @@ namespace FargoConnectSdkExamples
             return cardtypes;
         }
 
+        public string SendPrint(string printDestination)
+        {
+            string jobId = "";
+
+            var clientCertificate = new X509Certificate2(File.ReadAllBytes(SSL_Cert_Path), SSL_Cert_Pwd);
+            var cardServicesClient = ConfigureClient(TestServerUrl, TestServerApiKey, clientCertificate);
+            Organization org = SelectOrganizations(cardServicesClient, out Organization organization);
+            CardServicesClient client = cardServicesClient;
+            ProductionProfile productionProfile = SelectProductionProfileTest(client, organization.OrganizationId, out ProductionProfile prodtprofile);
+            ProductionProfileApi profileApi = client.ProductionProfileApi;
+            ProductionProfileConfig profileConfig = profileApi.GetProductionProfileParameters(productionProfile.ProfileId);
+
+            String selectedCardType = "blankcard";
+            ((ListParameter)profileConfig.ProfileParameters[0]).Value = selectedCardType;
+
+            var productionRequestTemplate = cardServicesClient.ProductionProfileApi.ConfigureProductionProfile(profileConfig);
+
+            foreach (var service in productionRequestTemplate.Services)
+            {
+                var cardRequest = (CardRequestService)service;
+
+                for (var i = 0; i < cardRequest.Parameters.Count; i++)
+                {
+                    var dataParameter = cardRequest.Parameters[i];
+
+                    switch (dataParameter.Data.DataType)
+                    {
+                        case DataType.Text:
+                
+                            var textParam = (TextParameter)dataParameter.Data;
+                            textParam.Value = textParam.Name;
+
+                            Console.WriteLine("  Param[{0}] ({1}): {2} -> {3}", i, textParam.DataType, textParam.Name, textParam.Value);
+                            break;
+
+                        case DataType.Image:
+               
+                            var imageParam = (ImageParameter)dataParameter.Data;
+                            imageParam.ImageStream = new FileStream(@"photos\testimage.png", FileMode.Open, FileAccess.Read, FileShare.Read);
+
+                            Console.WriteLine("  Param[{0}] ({1}): {2} (Pref Size: {3}x{4} pixels)", i,
+                            imageParam.DataType, imageParam.Name,
+                            imageParam.PreferredWidth, imageParam.PreferredHeight);
+                            break;
+
+                        default:
+                            throw new Exception($"Unexpected service data parameter: {dataParameter.Data.Name}");
+                    }
+                }
+
+                cardRequest.Destination = printDestination;
+                cardRequest.RequestName = "Unit Testing Print Request - plz delete";
+
+                //set card image and render only
+                cardRequest.ServiceOptions.Add(CardRenderOption.Enable, "true");
+                cardRequest.ServiceOptions.Add(CardRenderOption.CardSides, CardRenderOption.FrontAndBack);
+                cardRequest.ServiceOptions.Add(CardRenderOption.ImageRotation, CardRenderOption.Clockwise90);
+                cardRequest.ServiceOptions.Add(CardRenderOption.ImageQuality, "1");
+                cardRequest.ServiceOptions.Add(CardRenderOption.OutputMode, CardRenderOption.RenderOnly);
+
+
+            }
+
+            jobId = cardServicesClient.JobApi.SubmitProductionRequest(productionRequestTemplate);
+
+            return jobId;
+
+        }
+
         //Exception Test Functions
 
-        public string Apikey_Exception()
+        //this loads the count of devices. it will fail if any param is wrong.
+        public int CardServicesClient_Exception()
         {
-            string message = "";
-            if (String.IsNullOrWhiteSpace(null) || String.IsNullOrWhiteSpace(TestServerUrl))
-            {
-                try
-                {
-                    throw new Exception("Test server API key and URL have not been configured");
-                }
-                catch (Exception ex)
-                {
-                    Console.WriteLine(ex.Message);
-                    message = ex.Message;
-                }
-                
-            }
-            return message;
+            var clientCertificate = new X509Certificate2(File.ReadAllBytes(SSL_Cert_Path), SSL_Cert_Pwd);
+            var cardServicesClient = ConfigureClient(TestServerUrl, TestServerApiKey, clientCertificate);
+            CardServicesClient client = cardServicesClient;
+            return client.DeviceApi.GetDevices().Count;
         }
 
-        public string ServerURi_Exception()
-        {
-            string message = "";
-            if (String.IsNullOrWhiteSpace(TestServerApiKey) || String.IsNullOrWhiteSpace(null))
-            {
-                try
-                {
-                    throw new Exception("Test server API key and URL have not been configured");
-                }
-                catch (Exception ex)
-                {
-                    Console.WriteLine(ex.Message);
-                    message = ex.Message;
-                }
-
-            }
-            return message;
-        }
+      
 
 
         public void DirectoryException()
@@ -889,7 +1077,7 @@ namespace FargoConnectSdkExamples
             /*
       * Ensure the test server API key and URL are configured
       */
-            var clientCertificate = new X509Certificate2(File.ReadAllBytes(@"C:\HFCCertifications\Schlumberger-Development-Certs\Java\Schlumberger_Card_Services_Client_API_Auth_Cert.p12"), "xgWkY3uwSDX2JX1qyvi7");
+            var clientCertificate = new X509Certificate2(File.ReadAllBytes(@"C:\HFCCertifications\Schlumberger-Development-Certs\Java\Schlumberger_Card_Services_Client_API_Auth_Cert.p12"), SSL_Cert_Pwd);
             if (String.IsNullOrWhiteSpace(TestServerApiKey) || String.IsNullOrWhiteSpace(TestServerUrl))
             {
                 Console.WriteLine();
@@ -943,7 +1131,7 @@ namespace FargoConnectSdkExamples
             /*
       * Ensure the test server API key and URL are configured
       */
-            //var clientCertificate = new X509Certificate2(File.ReadAllBytes(@"C:\HFCCertifications\Schlumberger-Development-Certs\Java\Schlumberger_Card_Services_Client_API_Auth_Cert.p12"), "xgWkY3uwSDX2JX1qyvi7");
+            //var clientCertificate = new X509Certificate2(File.ReadAllBytes(@"C:\HFCCertifications\Schlumberger-Development-Certs\Java\Schlumberger_Card_Services_Client_API_Auth_Cert.p12"), SSL_Cert_Pwd);
             if (String.IsNullOrWhiteSpace(TestServerApiKey) || String.IsNullOrWhiteSpace(TestServerUrl))
             {
                 Console.WriteLine();
@@ -956,11 +1144,11 @@ namespace FargoConnectSdkExamples
             /*
              * Prompt the user to select the client authentication certificate
              */
-            if (!SelectClientAuthCertificate(out var clientAuthCertificate))
-            {
-                Console.WriteLine("No client authentication certificate selected");
-                return;
-            }
+          //  if (!SelectClientAuthCertificate(out var clientAuthCertificate))
+          //  {
+          //      Console.WriteLine("No client authentication certificate selected");
+          //      return;
+          //  }
 
             ///*
             // * Display certificate information for debug purposes
@@ -1022,7 +1210,7 @@ namespace FargoConnectSdkExamples
 
         public String orgnameexp()
         {
-            var clientCertificate = new X509Certificate2(File.ReadAllBytes(@"C:\HFCCertification\Schlumberger-Development-Certs\Java\Schlumberger_Card_Services_Client_API_Auth_Cert.p12"), "xgWkY3uwSDX2JX1qyvi7");
+            var clientCertificate = new X509Certificate2(File.ReadAllBytes(SSL_Cert_Path), SSL_Cert_Pwd);
             var cardServicesClient = ConfigureClient(TestServerUrl, TestServerApiKey, clientCertificate);
             Organization org = SelectOrganizationexp(cardServicesClient, out Organization organization);
             return org.Name;

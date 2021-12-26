@@ -50,3 +50,29 @@ C:\HID-FARGO-Connect-ClientSDK-for-DotNet\examples\UnitTestProject1\obj\Debug\ne
 C:\HID-FARGO-Connect-ClientSDK-for-DotNet\examples\UnitTestProject1\obj\Debug\netcoreapp2.2\SuccessTest.csproj.CopyComplete
 C:\HID-FARGO-Connect-ClientSDK-for-DotNet\examples\UnitTestProject1\obj\Debug\netcoreapp2.2\SuccessTest.dll
 C:\HID-FARGO-Connect-ClientSDK-for-DotNet\examples\UnitTestProject1\obj\Debug\netcoreapp2.2\SuccessTest.pdb
+C:\OneDrive\OneDrive-AssaAbloyInc\HFC Internal Share\Technical\Code\unit tests\.net\UnitTestProject1\bin\Debug\netcoreapp2.2\Microsoft.VisualStudio.TestPlatform.MSTest.TestAdapter.dll
+C:\OneDrive\OneDrive-AssaAbloyInc\HFC Internal Share\Technical\Code\unit tests\.net\UnitTestProject1\bin\Debug\netcoreapp2.2\Microsoft.VisualStudio.TestPlatform.MSTestAdapter.PlatformServices.Interface.dll
+C:\OneDrive\OneDrive-AssaAbloyInc\HFC Internal Share\Technical\Code\unit tests\.net\UnitTestProject1\bin\Debug\netcoreapp2.2\Microsoft.VisualStudio.TestPlatform.MSTestAdapter.PlatformServices.dll
+C:\OneDrive\OneDrive-AssaAbloyInc\HFC Internal Share\Technical\Code\unit tests\.net\UnitTestProject1\bin\Debug\netcoreapp2.2\photos\testimage.png
+C:\OneDrive\OneDrive-AssaAbloyInc\HFC Internal Share\Technical\Code\unit tests\.net\UnitTestProject1\bin\Debug\netcoreapp2.2\SuccessTest.deps.json
+C:\OneDrive\OneDrive-AssaAbloyInc\HFC Internal Share\Technical\Code\unit tests\.net\UnitTestProject1\bin\Debug\netcoreapp2.2\SuccessTest.runtimeconfig.json
+C:\OneDrive\OneDrive-AssaAbloyInc\HFC Internal Share\Technical\Code\unit tests\.net\UnitTestProject1\bin\Debug\netcoreapp2.2\SuccessTest.runtimeconfig.dev.json
+C:\OneDrive\OneDrive-AssaAbloyInc\HFC Internal Share\Technical\Code\unit tests\.net\UnitTestProject1\bin\Debug\netcoreapp2.2\SuccessTest.dll
+C:\OneDrive\OneDrive-AssaAbloyInc\HFC Internal Share\Technical\Code\unit tests\.net\UnitTestProject1\bin\Debug\netcoreapp2.2\SuccessTest.pdb
+C:\OneDrive\OneDrive-AssaAbloyInc\HFC Internal Share\Technical\Code\unit tests\.net\UnitTestProject1\bin\Debug\netcoreapp2.2\FargoConnect.CardServices.ClientSdk.Examples.exe
+C:\OneDrive\OneDrive-AssaAbloyInc\HFC Internal Share\Technical\Code\unit tests\.net\UnitTestProject1\bin\Debug\netcoreapp2.2\FargoConnect.CardServices.ClientSdk.dll
+C:\OneDrive\OneDrive-AssaAbloyInc\HFC Internal Share\Technical\Code\unit tests\.net\UnitTestProject1\bin\Debug\netcoreapp2.2\RestSharp.dll
+C:\OneDrive\OneDrive-AssaAbloyInc\HFC Internal Share\Technical\Code\unit tests\.net\UnitTestProject1\bin\Debug\netcoreapp2.2\BouncyCastle.Crypto.dll
+C:\OneDrive\OneDrive-AssaAbloyInc\HFC Internal Share\Technical\Code\unit tests\.net\UnitTestProject1\bin\Debug\netcoreapp2.2\FargoConnect.CardServices.ClientSdk.Examples.pdb
+C:\OneDrive\OneDrive-AssaAbloyInc\HFC Internal Share\Technical\Code\unit tests\.net\UnitTestProject1\bin\Debug\netcoreapp2.2\FargoConnect.CardServices.ClientSdk.Examples.exe.config
+C:\OneDrive\OneDrive-AssaAbloyInc\HFC Internal Share\Technical\Code\unit tests\.net\UnitTestProject1\bin\Debug\netcoreapp2.2\FargoConnect.CardServices.ClientSdk.xml
+C:\OneDrive\OneDrive-AssaAbloyInc\HFC Internal Share\Technical\Code\unit tests\.net\UnitTestProject1\bin\Debug\netcoreapp2.2\RestSharp.xml
+C:\OneDrive\OneDrive-AssaAbloyInc\HFC Internal Share\Technical\Code\unit tests\.net\UnitTestProject1\obj\Debug\netcoreapp2.2\SuccessTest.csproj.AssemblyReference.cache
+C:\OneDrive\OneDrive-AssaAbloyInc\HFC Internal Share\Technical\Code\unit tests\.net\UnitTestProject1\obj\Debug\netcoreapp2.2\SuccessTest.GeneratedMSBuildEditorConfig.editorconfig
+C:\OneDrive\OneDrive-AssaAbloyInc\HFC Internal Share\Technical\Code\unit tests\.net\UnitTestProject1\obj\Debug\netcoreapp2.2\SuccessTest.AssemblyInfoInputs.cache
+C:\OneDrive\OneDrive-AssaAbloyInc\HFC Internal Share\Technical\Code\unit tests\.net\UnitTestProject1\obj\Debug\netcoreapp2.2\SuccessTest.AssemblyInfo.cs
+C:\OneDrive\OneDrive-AssaAbloyInc\HFC Internal Share\Technical\Code\unit tests\.net\UnitTestProject1\obj\Debug\netcoreapp2.2\SuccessTest.csproj.CoreCompileInputs.cache
+C:\OneDrive\OneDrive-AssaAbloyInc\HFC Internal Share\Technical\Code\unit tests\.net\UnitTestProject1\obj\Debug\netcoreapp2.2\SuccessTest.csproj.CopyComplete
+C:\OneDrive\OneDrive-AssaAbloyInc\HFC Internal Share\Technical\Code\unit tests\.net\UnitTestProject1\obj\Debug\netcoreapp2.2\SuccessTest.dll
+C:\OneDrive\OneDrive-AssaAbloyInc\HFC Internal Share\Technical\Code\unit tests\.net\UnitTestProject1\obj\Debug\netcoreapp2.2\SuccessTest.pdb
+C:\OneDrive\OneDrive-AssaAbloyInc\HFC Internal Share\Technical\Code\unit tests\.net\UnitTestProject1\obj\Debug\netcoreapp2.2\SuccessTest.genruntimeconfig.cache

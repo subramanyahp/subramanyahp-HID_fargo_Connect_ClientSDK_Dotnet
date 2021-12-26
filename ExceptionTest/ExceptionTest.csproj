@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>netcoreapp2.2</TargetFramework>
+    <TargetFramework>net5.0</TargetFramework>
 
     <IsPackable>false</IsPackable>
   </PropertyGroup>
@@ -18,7 +18,8 @@
 
   <ItemGroup>
     <Reference Include="FargoConnect.CardServices.ClientSdk">
-      <HintPath>..\..\lib\net452\FargoConnect.CardServices.ClientSdk.dll</HintPath>
+      <HintPath>..\DotNet-4.5.2\bin\Debug\FargoConnect.CardServices.ClientSdk.dll</HintPath>
+      <Private>true</Private>
     </Reference>
   </ItemGroup>
 

@@ -52,3 +52,33 @@ C:\HID-FARGO-Connect-ClientSDK-for-DotNet\examples\ExceptionTest\bin\Debug\netco
 C:\HID-FARGO-Connect-ClientSDK-for-DotNet\examples\ExceptionTest\obj\Debug\netcoreapp2.2\ExceptionTest.csproj.CopyComplete
 C:\HID-FARGO-Connect-ClientSDK-for-DotNet\examples\ExceptionTest\obj\Debug\netcoreapp2.2\ExceptionTest.dll
 C:\HID-FARGO-Connect-ClientSDK-for-DotNet\examples\ExceptionTest\obj\Debug\netcoreapp2.2\ExceptionTest.pdb
+C:\OneDrive\OneDrive-AssaAbloyInc\HFC Internal Share\Technical\Code\unit tests\.net\ExceptionTest\bin\Debug\netcoreapp2.2\testhost.exe
+C:\OneDrive\OneDrive-AssaAbloyInc\HFC Internal Share\Technical\Code\unit tests\.net\ExceptionTest\bin\Debug\netcoreapp2.2\testhost.dll
+C:\OneDrive\OneDrive-AssaAbloyInc\HFC Internal Share\Technical\Code\unit tests\.net\ExceptionTest\bin\Debug\netcoreapp2.2\Microsoft.TestPlatform.PlatformAbstractions.dll
+C:\OneDrive\OneDrive-AssaAbloyInc\HFC Internal Share\Technical\Code\unit tests\.net\ExceptionTest\bin\Debug\netcoreapp2.2\Microsoft.VisualStudio.TestPlatform.MSTest.TestAdapter.dll
+C:\OneDrive\OneDrive-AssaAbloyInc\HFC Internal Share\Technical\Code\unit tests\.net\ExceptionTest\bin\Debug\netcoreapp2.2\Microsoft.VisualStudio.TestPlatform.MSTestAdapter.PlatformServices.Interface.dll
+C:\OneDrive\OneDrive-AssaAbloyInc\HFC Internal Share\Technical\Code\unit tests\.net\ExceptionTest\bin\Debug\netcoreapp2.2\Microsoft.VisualStudio.TestPlatform.MSTestAdapter.PlatformServices.dll
+C:\OneDrive\OneDrive-AssaAbloyInc\HFC Internal Share\Technical\Code\unit tests\.net\ExceptionTest\bin\Debug\netcoreapp2.2\Microsoft.TestPlatform.AdapterUtilities.dll
+C:\OneDrive\OneDrive-AssaAbloyInc\HFC Internal Share\Technical\Code\unit tests\.net\ExceptionTest\bin\Debug\netcoreapp2.2\photos\testimage.png
+C:\OneDrive\OneDrive-AssaAbloyInc\HFC Internal Share\Technical\Code\unit tests\.net\ExceptionTest\bin\Debug\netcoreapp2.2\ExceptionTest.deps.json
+C:\OneDrive\OneDrive-AssaAbloyInc\HFC Internal Share\Technical\Code\unit tests\.net\ExceptionTest\bin\Debug\netcoreapp2.2\ExceptionTest.runtimeconfig.json
+C:\OneDrive\OneDrive-AssaAbloyInc\HFC Internal Share\Technical\Code\unit tests\.net\ExceptionTest\bin\Debug\netcoreapp2.2\ExceptionTest.runtimeconfig.dev.json
+C:\OneDrive\OneDrive-AssaAbloyInc\HFC Internal Share\Technical\Code\unit tests\.net\ExceptionTest\bin\Debug\netcoreapp2.2\ExceptionTest.dll
+C:\OneDrive\OneDrive-AssaAbloyInc\HFC Internal Share\Technical\Code\unit tests\.net\ExceptionTest\bin\Debug\netcoreapp2.2\ExceptionTest.pdb
+C:\OneDrive\OneDrive-AssaAbloyInc\HFC Internal Share\Technical\Code\unit tests\.net\ExceptionTest\bin\Debug\netcoreapp2.2\FargoConnect.CardServices.ClientSdk.dll
+C:\OneDrive\OneDrive-AssaAbloyInc\HFC Internal Share\Technical\Code\unit tests\.net\ExceptionTest\bin\Debug\netcoreapp2.2\FargoConnect.CardServices.ClientSdk.Examples.exe
+C:\OneDrive\OneDrive-AssaAbloyInc\HFC Internal Share\Technical\Code\unit tests\.net\ExceptionTest\bin\Debug\netcoreapp2.2\RestSharp.dll
+C:\OneDrive\OneDrive-AssaAbloyInc\HFC Internal Share\Technical\Code\unit tests\.net\ExceptionTest\bin\Debug\netcoreapp2.2\BouncyCastle.Crypto.dll
+C:\OneDrive\OneDrive-AssaAbloyInc\HFC Internal Share\Technical\Code\unit tests\.net\ExceptionTest\bin\Debug\netcoreapp2.2\FargoConnect.CardServices.ClientSdk.Examples.pdb
+C:\OneDrive\OneDrive-AssaAbloyInc\HFC Internal Share\Technical\Code\unit tests\.net\ExceptionTest\bin\Debug\netcoreapp2.2\FargoConnect.CardServices.ClientSdk.Examples.exe.config
+C:\OneDrive\OneDrive-AssaAbloyInc\HFC Internal Share\Technical\Code\unit tests\.net\ExceptionTest\bin\Debug\netcoreapp2.2\FargoConnect.CardServices.ClientSdk.xml
+C:\OneDrive\OneDrive-AssaAbloyInc\HFC Internal Share\Technical\Code\unit tests\.net\ExceptionTest\bin\Debug\netcoreapp2.2\RestSharp.xml
+C:\OneDrive\OneDrive-AssaAbloyInc\HFC Internal Share\Technical\Code\unit tests\.net\ExceptionTest\obj\Debug\netcoreapp2.2\ExceptionTest.csproj.AssemblyReference.cache
+C:\OneDrive\OneDrive-AssaAbloyInc\HFC Internal Share\Technical\Code\unit tests\.net\ExceptionTest\obj\Debug\netcoreapp2.2\ExceptionTest.GeneratedMSBuildEditorConfig.editorconfig
+C:\OneDrive\OneDrive-AssaAbloyInc\HFC Internal Share\Technical\Code\unit tests\.net\ExceptionTest\obj\Debug\netcoreapp2.2\ExceptionTest.AssemblyInfoInputs.cache
+C:\OneDrive\OneDrive-AssaAbloyInc\HFC Internal Share\Technical\Code\unit tests\.net\ExceptionTest\obj\Debug\netcoreapp2.2\ExceptionTest.AssemblyInfo.cs
+C:\OneDrive\OneDrive-AssaAbloyInc\HFC Internal Share\Technical\Code\unit tests\.net\ExceptionTest\obj\Debug\netcoreapp2.2\ExceptionTest.csproj.CoreCompileInputs.cache
+C:\OneDrive\OneDrive-AssaAbloyInc\HFC Internal Share\Technical\Code\unit tests\.net\ExceptionTest\obj\Debug\netcoreapp2.2\ExceptionTest.csproj.CopyComplete
+C:\OneDrive\OneDrive-AssaAbloyInc\HFC Internal Share\Technical\Code\unit tests\.net\ExceptionTest\obj\Debug\netcoreapp2.2\ExceptionTest.dll
+C:\OneDrive\OneDrive-AssaAbloyInc\HFC Internal Share\Technical\Code\unit tests\.net\ExceptionTest\obj\Debug\netcoreapp2.2\ExceptionTest.pdb
+C:\OneDrive\OneDrive-AssaAbloyInc\HFC Internal Share\Technical\Code\unit tests\.net\ExceptionTest\obj\Debug\netcoreapp2.2\ExceptionTest.genruntimeconfig.cache
